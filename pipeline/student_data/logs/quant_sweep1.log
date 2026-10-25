@@ -1,0 +1,13 @@
+60 held-out texts: {'en': 15, 'hi': 15, 'mixed': 15, 'roman': 15}
+[bf16    ] quant 0s total 424s | stop-rate 0.98 s/word 0.39 | all: WER 23.6 CER 15.6 | en: WER 5.6 CER 3.3 | hi: WER 28.8 CER 12.2 | mixed: WER 31.9 CER 28.3 | roman: WER 28.0 CER 18.4
+[rtn4g32 ] quant 1s total 377s | stop-rate 1.00 s/word 0.40 | all: WER 54.0 CER 31.8 | en: WER 125.1 CER 69.3 | hi: WER 30.4 CER 12.3 | mixed: WER 34.2 CER 29.0 | roman: WER 26.6 CER 16.8
+[hqq4g64 ] quant 19s total 422s | stop-rate 0.97 s/word 0.41 | all: WER 24.7 CER 16.6 | en: WER 9.7 CER 8.1 | hi: WER 31.1 CER 13.6 | mixed: WER 32.8 CER 29.3 | roman: WER 25.2 CER 15.2
+[hqq3g32 ] quant 19s total 467s | stop-rate 0.95 s/word 0.45 | all: WER 26.0 CER 17.2 | en: WER 7.8 CER 5.5 | hi: WER 33.8 CER 15.8 | mixed: WER 33.5 CER 29.9 | roman: WER 28.9 CER 17.4
+[hqq2g16 ] quant 15s total 537s | stop-rate 0.98 s/word 0.25 | all: WER 574.9 CER 347.2 | en: WER 370.1 CER 220.1 | hi: WER 733.7 CER 427.8 | mixed: WER 709.3 CER 433.1 | roman: WER 486.5 CER 308.0
+
+== summary (mean per-utterance WER/CER %, same texts and seed; bf16 = control)
+bf16      all=24/16  en=6/3  hi=29/12  mixed=32/28  roman=28/18
+rtn4g32   all=54/32  en=125/69  hi=30/12  mixed=34/29  roman=27/17
+hqq4g64   all=25/17  en=10/8  hi=31/14  mixed=33/29  roman=25/15
+hqq3g32   all=26/17  en=8/6  hi=34/16  mixed=34/30  roman=29/17
+hqq2g16   all=575/347  en=370/220  hi=734/428  mixed=709/433  roman=486/308

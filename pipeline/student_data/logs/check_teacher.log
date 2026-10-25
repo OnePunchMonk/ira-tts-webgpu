@@ -1,0 +1,23 @@
+The tokenizer you are loading from '/home/sanyam-0605/Desktop/sanyam_projects/rumik-oss-model-dissection/rumik-oss-1' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+samples total=11973 terminated=11911 dropped_unterminated=62
+  hi: secs/word p1/p10/p50/p90/p99 = [0.32, 0.38, 0.46, 0.59, 0.89]
+  mixed: secs/word p1/p10/p50/p90/p99 = [0.32, 0.37, 0.44, 0.57, 0.86]
+  roman: secs/word p1/p10/p50/p90/p99 = [0.33, 0.37, 0.45, 0.55, 0.67]
+  en: secs/word p1/p10/p50/p90/p99 = [0.29, 0.34, 0.41, 0.54, 0.96]
+  flagged outliers: Counter({'': 11671, 'short': 120, 'long': 120})
+wrote 60 wavs -> /home/sanyam-0605/Desktop/sanyam_projects/rumik-oss-model-dissection/student_data/listen
+Device set to use cuda
+`return_token_timestamps` is deprecated for WhisperFeatureExtractor and will be removed in Transformers v5. Use `return_attention_mask` instead, as the number of frames can be inferred from it.
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+
+ASR baseline (whisper-large-v3-turbo; relative metric, noisy for Hinglish/numbers):
+  all              WER  19.3%  CER  11.3%  (n_words=6795)
+  group=conv       WER  19.1%  CER  10.4%  (n_words=4268)
+  group=round2     WER  18.7%  CER  13.1%  (n_words=1898)
+  group=trivia     WER  22.7%  CER  11.6%  (n_words=629)
+  lang=en          WER   4.2%  CER   2.3%  (n_words=2068)
+  lang=hi          WER  24.1%  CER   9.3%  (n_words=1763)
+  lang=mixed       WER  27.7%  CER  22.4%  (n_words=1788)
+  lang=roman       WER  26.1%  CER  15.4%  (n_words=1176)
+  tag=no           WER  19.5%  CER  11.5%  (n_words=5965)
+  tag=yes          WER  17.8%  CER   9.0%  (n_words=830)

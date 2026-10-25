@@ -1,0 +1,5 @@
+160 held-out texts: {'en': 40, 'hi': 40, 'mixed': 40, 'roman': 40}
+[bf16    ] quant 0s total 1184s | stop-rate 0.91 s/word 0.45 | all: WER 78.7 CER 38.6 | en: WER 229.1 CER 99.8 | hi: WER 25.6 CER 10.6 | mixed: WER 33.3 CER 26.6 | roman: WER 26.8 CER 17.5
+
+== summary (mean per-utterance WER/CER %, same texts and seed; bf16 = control)
+bf16      all=79/39  en=229/100  hi=26/11  mixed=33/27  roman=27/18

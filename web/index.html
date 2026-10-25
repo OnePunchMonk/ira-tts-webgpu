@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ira TTS · in-browser</title>
+<style>
+  :root { --bg:#f6f5f2; --card:#fff; --ink:#1d1d1f; --mute:#6b6b70; --line:#e2e0da; --accent:#c2410c; --accent-ink:#fff; --ok:#15803d; --bad:#b91c1c; --code:#f0eee9; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141414; --card:#1d1d1f; --ink:#f2f2f2; --mute:#9a9aa0; --line:#323236; --accent:#fb923c; --accent-ink:#1a1a1a; --ok:#4ade80; --bad:#f87171; --code:#26262a; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 22px; margin: 0 0 4px; } .sub { color:var(--mute); margin:0 0 20px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:16px; }
+  .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+  label { font-size:13px; color:var(--mute); display:block; margin-bottom:3px; }
+  textarea, select, input[type=number] { width:100%; background:var(--bg); color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:9px 10px; font:inherit; }
+  textarea { min-height:110px; resize:vertical; }
+  .col { flex:1 1 150px; min-width:140px; }
+  button { background:var(--accent); color:var(--accent-ink); border:0; border-radius:8px; padding:10px 16px; font:inherit; font-weight:600; cursor:pointer; }
+  button.secondary { background:transparent; color:var(--ink); border:1px solid var(--line); font-weight:500; }
+  button.chip { padding:5px 10px; font-size:13px; }
+  button:disabled { opacity:.45; cursor:default; }
+  .stat { display:grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap:10px; }
+  .stat div { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 10px; }
+  .stat b { display:block; font-size:19px; } .stat span { color:var(--mute); font-size:12px; }
+  pre { background:var(--code); border-radius:8px; padding:10px; margin:0; font:12px/1.5 ui-monospace,Menlo,monospace; max-height:260px; overflow:auto; white-space:pre-wrap; }
+  .bar { height:8px; background:var(--bg); border:1px solid var(--line); border-radius:6px; overflow:hidden; } .bar > i { display:block; height:100%; width:0; background:var(--accent); transition:width .2s; }
+  .ok { color:var(--ok); } .bad { color:var(--bad); } .mute { color:var(--mute); } small { color:var(--mute); }
+  details summary { cursor:pointer; color:var(--mute); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ira · text-to-speech in your browser</h1>
+  <p class="sub">rumik-oss-1 (Ira voice), quantized to 2-bit and run with WebGPU. Research / non-commercial use only (CC BY-NC 4.0 weights; Mimi codec CC BY 4.0).</p>
+
+  <div class="card">
+    <div class="row" style="margin-bottom:10px"><strong>1 · Device &amp; model</strong><span id="gpuInfo" class="mute"></span></div>
+    <div class="row">
+      <button id="loadBtn">Load model (≈1.4 GB, cached after first load)</button>
+      <button id="benchBtn" class="secondary" disabled>Speed test</button>
+      <span id="loadMsg" class="mute"></span>
+    </div>
+    <div class="bar" style="margin-top:10px"><i id="loadBar"></i></div>
+  </div>
+
+  <div class="card">
+    <strong>2 · Say something</strong>
+    <div style="margin:10px 0 6px"><textarea id="text">नमस्ते Sanyam! आज की meeting में सबको हमारा idea पसंद आया। I was so nervous, लेकिन तुमने कहा था ना, बस दिल से बोलो।</textarea></div>
+    <div class="row" style="margin-bottom:10px">
+      <small>Examples:</small>
+      <button class="chip secondary" data-ex="Hi Sanyam, aap kaise ho?">Hinglish (roman)</button>
+      <button class="chip secondary" data-ex="Hi Sanyam, आप कैसे हो? आज का दिन कैसा रहा?">Hindi</button>
+      <button class="chip secondary" data-ex="Good evening, passengers. Boarding for the flight to Bengaluru will begin shortly at gate twelve.">English</button>
+      <small style="margin-left:8px">Insert:</small>
+      <button class="chip secondary" data-tag="<laugh>">&lt;laugh&gt;</button>
+      <button class="chip secondary" data-tag="<chuckle>">&lt;chuckle&gt;</button>
+      <button class="chip secondary" data-tag="<sigh>">&lt;sigh&gt;</button>
+    </div>
+    <div class="row">
+      <div class="col"><label>Tone</label><select id="tone"><option value="">(none)</option><option>happy</option><option>sad</option><option>angry</option><option>excited</option><option>professional</option></select></div>
+      <div class="col"><label>Accent</label><select id="accent"><option value="">(none)</option><option>Hindi accent</option><option>Indian English accent</option></select></div>
+      <div class="col"><label>Pace</label><select id="pace"><option value="">(none)</option><option>slow pace</option><option>steady pace</option><option>fast pace</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button id="speakBtn" disabled>Speak</button>
+      <button id="stopBtn" class="secondary" disabled>Stop</button>
+      <a id="dl" download="ira.wav" style="display:none" class="mute">Download WAV</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>3 · Numbers</strong>
+    <div class="stat" style="margin-top:10px">
+      <div><b id="sTps">–</b><span>tokens / s (need ≥ 100 for real time)</span></div>
+      <div><b id="sRtf">–</b><span>real-time factor (&lt; 1 = faster than real time)</span></div>
+      <div><b id="sFirst">–</b><span>time to first audio</span></div>
+      <div><b id="sAudio">–</b><span>audio length</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>Settings</summary>
+      <div class="row" style="margin-top:10px">
+        <div class="col"><label>Temperature</label><input id="temp" type="number" step="0.05" min="0.1" max="1.5" value="0.8"></div>
+        <div class="col"><label>Top-k</label><input id="topk" type="number" step="1" min="1" max="200" value="30"></div>
+        <div class="col"><label>Stop threshold (stop head)</label><input id="stopTh" type="number" step="0.05" min="0.05" max="0.95" value="0.5"></div>
+        <div class="col"><label>Seed (0 = random)</label><input id="seed" type="number" step="1" min="0" value="0"></div>
+      </div>
+      <p class="mute" style="margin-bottom:0">Long text is split into sentences; each sentence is synthesised and queued so playback starts after the first one.</p>
+    </details>
+  </div>
+
+  <div class="card"><strong>Log</strong><pre id="log" style="margin-top:8px"></pre></div>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+bf16 KD 2.4445  (15168 tokens)
+layer  0 | q_pr=-0.000 k_pr=-0.000 v_pr=+0.001 o_pr=-0.000 gate=+0.002 up_p=+0.002 down=+0.413 | sum +0.416 | 39s
+layer  1 | q_pr=-0.000 k_pr=-0.000 v_pr=+0.000 o_pr=-0.000 gate=+0.001 up_p=+0.001 down=+0.001 | sum +0.001 | 72s
+layer  2 | q_pr=-0.000 k_pr=+0.000 v_pr=+0.000 o_pr=-0.001 gate=+0.000 up_p=-0.001 down=+0.001 | sum +0.000 | 105s
+layer  3 | q_pr=-0.000 k_pr=-0.000 v_pr=+0.002 o_pr=-0.001 gate=+0.000 up_p=+0.000 down=+0.000 | sum +0.001 | 139s
+layer  4 | q_pr=-0.000 k_pr=+0.000 v_pr=+0.001 o_pr=+0.000 gate=-0.000 up_p=-0.001 down=-0.000 | sum +0.001 | 172s
+layer  5 | q_pr=-0.000 k_pr=+0.001 v_pr=+0.004 o_pr=+0.000 gate=-0.000 up_p=+0.002 down=+0.001 | sum +0.008 | 205s
+layer  6 | q_pr=+0.000 k_pr=+0.000 v_pr=+0.002 o_pr=+0.001 gate=+0.001 up_p=+0.000 down=+0.000 | sum +0.005 | 239s
+layer  7 | q_pr=+0.000 k_pr=-0.000 v_pr=+0.004 o_pr=+0.000 gate=+0.001 up_p=+0.001 down=+0.017 | sum +0.023 | 272s
+layer  8 | q_pr=-0.001 k_pr=-0.000 v_pr=+0.003 o_pr=+0.001 gate=+0.003 up_p=+0.002 down=+0.001 | sum +0.009 | 305s
+layer  9 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.005 o_pr=+0.001 gate=+0.001 up_p=+0.002 down=-0.000 | sum +0.010 | 339s
+layer 10 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.010 o_pr=+0.004 gate=+0.002 up_p=+0.001 down=+0.002 | sum +0.021 | 373s
+layer 11 | q_pr=-0.000 k_pr=-0.000 v_pr=+0.009 o_pr=+0.003 gate=+0.001 up_p=+0.004 down=+0.003 | sum +0.020 | 407s
+layer 12 | q_pr=+0.001 k_pr=+0.000 v_pr=+0.010 o_pr=+0.003 gate=+0.000 up_p=+0.006 down=+0.004 | sum +0.025 | 440s
+layer 13 | q_pr=+0.001 k_pr=-0.000 v_pr=+0.006 o_pr=+0.003 gate=+0.002 up_p=+0.004 down=+0.002 | sum +0.018 | 474s
+layer 14 | q_pr=+0.002 k_pr=+0.001 v_pr=+0.013 o_pr=+0.004 gate=+0.004 up_p=+0.003 down=+0.003 | sum +0.029 | 507s
+layer 15 | q_pr=+0.001 k_pr=-0.000 v_pr=+0.009 o_pr=+0.003 gate=+0.004 up_p=+0.004 down=+0.006 | sum +0.026 | 540s
+layer 16 | q_pr=+0.001 k_pr=+0.003 v_pr=+0.023 o_pr=+0.007 gate=+0.006 up_p=+0.007 down=+0.008 | sum +0.055 | 574s
+layer 17 | q_pr=+0.001 k_pr=+0.002 v_pr=+0.017 o_pr=+0.007 gate=+0.004 up_p=+0.006 down=+0.007 | sum +0.045 | 607s
+layer 18 | q_pr=+0.002 k_pr=+0.001 v_pr=+0.013 o_pr=+0.008 gate=+0.006 up_p=+0.008 down=+0.009 | sum +0.047 | 641s
+layer 19 | q_pr=+0.001 k_pr=-0.000 v_pr=+0.015 o_pr=+0.003 gate=+0.007 up_p=+0.011 down=+0.009 | sum +0.046 | 674s
+layer 20 | q_pr=+0.002 k_pr=+0.001 v_pr=+0.016 o_pr=+0.008 gate=+0.007 up_p=+0.009 down=+0.010 | sum +0.053 | 707s
+layer 21 | q_pr=+0.001 k_pr=+0.003 v_pr=+0.013 o_pr=+0.011 gate=+0.006 up_p=+0.007 down=+0.009 | sum +0.051 | 741s
+layer 22 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.021 o_pr=+0.006 gate=+0.008 up_p=+0.014 down=+0.014 | sum +0.064 | 774s
+layer 23 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.013 o_pr=+0.002 gate=+0.005 up_p=+0.009 down=+0.011 | sum +0.042 | 808s
+layer 24 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.014 o_pr=+0.004 gate=+0.003 up_p=+0.006 down=+0.007 | sum +0.038 | 841s
+layer 25 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.007 o_pr=+0.009 gate=+0.003 up_p=+0.004 down=+0.005 | sum +0.032 | 874s
+layer 26 | q_pr=+0.002 k_pr=+0.001 v_pr=+0.009 o_pr=+0.005 gate=+0.003 up_p=+0.004 down=+0.006 | sum +0.030 | 908s
+layer 27 | q_pr=+0.000 k_pr=+0.000 v_pr=+0.007 o_pr=+0.000 gate=+0.003 up_p=+0.006 down=+0.007 | sum +0.025 | 941s
+layer 28 | q_pr=+0.003 k_pr=+0.002 v_pr=+0.007 o_pr=+0.003 gate=+0.002 up_p=+0.002 down=+0.005 | sum +0.024 | 975s
+layer 29 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.002 o_pr=+0.001 gate=+0.003 up_p=+0.003 down=+0.004 | sum +0.016 | 1008s
+layer 30 | q_pr=+0.001 k_pr=+0.001 v_pr=+0.004 o_pr=+0.002 gate=+0.003 up_p=+0.003 down=+0.003 | sum +0.017 | 1041s
+layer 31 | q_pr=+0.000 k_pr=-0.000 v_pr=+0.002 o_pr=-0.000 gate=+0.003 up_p=+0.004 down=+0.006 | sum +0.015 | 1075s
+layer 32 | q_pr=+0.000 k_pr=+0.001 v_pr=+0.004 o_pr=+0.003 gate=+0.002 up_p=+0.004 down=+0.005 | sum +0.021 | 1108s
+layer 33 | q_pr=+0.000 k_pr=+0.000 v_pr=+0.003 o_pr=+0.002 gate=+0.003 up_p=+0.004 down=+0.006 | sum +0.019 | 1142s
+layer 34 | q_pr=+0.000 k_pr=+0.000 v_pr=+0.003 o_pr=+0.001 gate=+0.004 up_p=+0.007 down=+0.007 | sum +0.021 | 1175s
+layer 35 | q_pr=+0.000 k_pr=+0.000 v_pr=+0.001 o_pr=+0.000 gate=+0.003 up_p=+0.008 down=+0.010 | sum +0.022 | 1208s
+type self_attn.q_proj   all-layers 2-bit +0.028 | 3-bit +0.005 | r3/r2 0.17
+type self_attn.k_proj   all-layers 2-bit +0.023 | 3-bit +0.004 | r3/r2 0.18
+type self_attn.v_proj   all-layers 2-bit +0.306 | 3-bit +0.087 | r3/r2 0.28
+type self_attn.o_proj   all-layers 2-bit +0.108 | 3-bit +0.021 | r3/r2 0.20
+type mlp.gate_proj      all-layers 2-bit +0.116 | 3-bit +0.027 | r3/r2 0.23
+type mlp.up_proj        all-layers 2-bit +0.171 | 3-bit +0.041 | r3/r2 0.24
+type mlp.down_proj      all-layers 2-bit +0.754 | 3-bit +0.118 | r3/r2 0.16
+uniform 2-bit g32 | eff 2.56 bits | delta +5.037
+uniform 3-bit g64 | eff 3.30 bits | delta +0.368
+uniform 4-bit g64 | eff 4.31 bits | delta +0.054
+plan budget 2.8: eff 2.80 bits | est delta +0.305 | REAL delta +0.534 | share of params at 2/3/4-bit 0.72/0.25/0.03
+plan budget 3.0: eff 3.00 bits | est delta +0.173 | REAL delta +0.353 | share of params at 2/3/4-bit 0.46/0.50/0.04
+plan budget 3.3: eff 3.30 bits | est delta +0.081 | REAL delta +0.189 | share of params at 2/3/4-bit 0.23/0.60/0.17
+plan budget 3.6: eff 3.60 bits | est delta +0.035 | REAL delta +0.128 | share of params at 2/3/4-bit 0.17/0.41/0.42
+
+most fragile matrices at 2-bit: [('0|mlp.down_proj', 0.413), ('16|self_attn.v_proj', 0.023), ('22|self_attn.v_proj', 0.021), ('17|self_attn.v_proj', 0.017), ('7|mlp.down_proj', 0.017), ('20|self_attn.v_proj', 0.016), ('19|self_attn.v_proj', 0.015), ('24|self_attn.v_proj', 0.014), ('22|mlp.up_proj', 0.014), ('22|mlp.down_proj', 0.014), ('21|self_attn.v_proj', 0.013), ('18|self_attn.v_proj', 0.013)]
+DONE 1466s

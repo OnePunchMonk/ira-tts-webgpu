@@ -1,0 +1,126 @@
+train samples 10995 | micro-batches/epoch 742 | steps/epoch 185 | total steps 1110
+step 0 | val KD 10.666 CE 10.662
+step 10/1110 | loss 11.412 KD 9.513 CE 9.493 | gn 12.22 lr 2.20e-05 | 4868 tok/s | 2.0 min
+step 20/1110 | loss 10.831 KD 9.030 CE 9.004 | gn 13.44 lr 4.20e-05 | 5097 tok/s | 3.7 min
+step 30/1110 | loss 10.137 KD 8.452 CE 8.423 | gn 6.66 lr 6.20e-05 | 5183 tok/s | 5.5 min
+step 40/1110 | loss 9.246 KD 7.712 CE 7.668 | gn 11.11 lr 8.20e-05 | 5226 tok/s | 7.3 min
+step 50/1110 | loss 7.596 KD 6.337 CE 6.295 | gn 4.92 lr 1.02e-04 | 5252 tok/s | 9.0 min
+step 60/1110 | loss 6.971 KD 5.818 CE 5.764 | gn 5.77 lr 1.22e-04 | 5266 tok/s | 10.8 min
+step 70/1110 | loss 6.627 KD 5.533 CE 5.470 | gn 4.40 lr 1.42e-04 | 5267 tok/s | 12.6 min
+step 80/1110 | loss 6.051 KD 5.056 CE 4.974 | gn 4.19 lr 1.62e-04 | 5287 tok/s | 14.3 min
+step 90/1110 | loss 5.749 KD 4.806 CE 4.718 | gn 4.03 lr 1.82e-04 | 5292 tok/s | 16.1 min
+step 100/1110 | loss 5.523 KD 4.620 CE 4.514 | gn 3.72 lr 2.00e-04 | 5309 tok/s | 17.9 min
+== step 100 | val KD 4.619 CE 4.520 *best*
+step 110/1110 | loss 5.295 KD 4.431 CE 4.317 | gn 3.06 lr 2.00e-04 | 5198 tok/s | 20.0 min
+step 120/1110 | loss 5.146 KD 4.311 CE 4.176 | gn 3.29 lr 2.00e-04 | 5214 tok/s | 21.8 min
+step 130/1110 | loss 5.101 KD 4.271 CE 4.148 | gn 3.50 lr 2.00e-04 | 5226 tok/s | 23.6 min
+step 140/1110 | loss 4.994 KD 4.185 CE 4.045 | gn 3.26 lr 1.99e-04 | 5237 tok/s | 25.3 min
+step 150/1110 | loss 4.927 KD 4.127 CE 4.001 | gn 2.39 lr 1.99e-04 | 5235 tok/s | 27.0 min
+step 160/1110 | loss 4.868 KD 4.078 CE 3.949 | gn 2.42 lr 1.98e-04 | 5243 tok/s | 28.7 min
+step 170/1110 | loss 4.769 KD 3.997 CE 3.858 | gn 2.39 lr 1.98e-04 | 5250 tok/s | 30.5 min
+step 180/1110 | loss 4.703 KD 3.939 CE 3.816 | gn 2.32 lr 1.97e-04 | 5259 tok/s | 32.3 min
+step 190/1110 | loss 4.516 KD 3.795 CE 3.605 | gn 2.46 lr 1.96e-04 | 5267 tok/s | 34.2 min
+step 200/1110 | loss 4.529 KD 3.804 CE 3.629 | gn 2.87 lr 1.95e-04 | 5274 tok/s | 35.9 min
+== step 200 | val KD 3.874 CE 3.736 *best*
+step 210/1110 | loss 4.516 KD 3.791 CE 3.628 | gn 2.50 lr 1.94e-04 | 5212 tok/s | 38.1 min
+step 220/1110 | loss 4.456 KD 3.742 CE 3.569 | gn 2.16 lr 1.93e-04 | 5218 tok/s | 39.8 min
+step 230/1110 | loss 4.444 KD 3.728 CE 3.579 | gn 2.40 lr 1.92e-04 | 5227 tok/s | 41.6 min
+step 240/1110 | loss 4.371 KD 3.669 CE 3.508 | gn 2.45 lr 1.91e-04 | 5233 tok/s | 43.3 min
+step 250/1110 | loss 4.392 KD 3.690 CE 3.512 | gn 2.13 lr 1.90e-04 | 5238 tok/s | 45.1 min
+step 260/1110 | loss 4.338 KD 3.641 CE 3.482 | gn 2.16 lr 1.88e-04 | 5239 tok/s | 46.9 min
+step 270/1110 | loss 4.304 KD 3.614 CE 3.447 | gn 2.12 lr 1.87e-04 | 5244 tok/s | 48.6 min
+step 280/1110 | loss 4.228 KD 3.552 CE 3.380 | gn 1.94 lr 1.85e-04 | 5248 tok/s | 50.3 min
+step 290/1110 | loss 4.292 KD 3.604 CE 3.438 | gn 2.03 lr 1.84e-04 | 5252 tok/s | 52.1 min
+step 300/1110 | loss 4.254 KD 3.572 CE 3.409 | gn 2.09 lr 1.82e-04 | 5255 tok/s | 53.9 min
+== step 300 | val KD 3.589 CE 3.437 *best*
+step 310/1110 | loss 4.200 KD 3.527 CE 3.365 | gn 1.73 lr 1.80e-04 | 5227 tok/s | 56.0 min
+step 320/1110 | loss 4.206 KD 3.533 CE 3.364 | gn 1.55 lr 1.79e-04 | 5236 tok/s | 57.8 min
+step 330/1110 | loss 4.025 KD 3.383 CE 3.212 | gn 2.02 lr 1.77e-04 | 5241 tok/s | 59.5 min
+step 340/1110 | loss 4.228 KD 3.549 CE 3.397 | gn 2.10 lr 1.75e-04 | 5245 tok/s | 61.2 min
+step 350/1110 | loss 4.083 KD 3.430 CE 3.266 | gn 1.65 lr 1.73e-04 | 5249 tok/s | 63.0 min
+step 360/1110 | loss 4.104 KD 3.446 CE 3.288 | gn 1.56 lr 1.71e-04 | 5252 tok/s | 64.8 min
+step 370/1110 | loss 4.030 KD 3.389 CE 3.205 | gn 1.85 lr 1.68e-04 | 5256 tok/s | 66.5 min
+step 380/1110 | loss 4.000 KD 3.371 CE 3.145 | gn 2.00 lr 1.66e-04 | 5260 tok/s | 68.3 min
+step 390/1110 | loss 3.995 KD 3.363 CE 3.163 | gn 1.61 lr 1.64e-04 | 5262 tok/s | 70.0 min
+step 400/1110 | loss 3.959 KD 3.334 CE 3.125 | gn 2.26 lr 1.62e-04 | 5265 tok/s | 71.7 min
+== step 400 | val KD 3.459 CE 3.295 *best*
+step 410/1110 | loss 3.894 KD 3.283 CE 3.056 | gn 1.81 lr 1.59e-04 | 5236 tok/s | 73.9 min
+step 420/1110 | loss 3.961 KD 3.336 CE 3.127 | gn 1.94 lr 1.57e-04 | 5240 tok/s | 75.6 min
+step 430/1110 | loss 3.939 KD 3.319 CE 3.105 | gn 1.92 lr 1.54e-04 | 5244 tok/s | 77.3 min
+step 440/1110 | loss 3.940 KD 3.318 CE 3.105 | gn 1.73 lr 1.52e-04 | 5248 tok/s | 79.1 min
+step 450/1110 | loss 3.949 KD 3.327 CE 3.112 | gn 1.59 lr 1.49e-04 | 5252 tok/s | 80.8 min
+step 460/1110 | loss 3.876 KD 3.265 CE 3.054 | gn 1.89 lr 1.46e-04 | 5253 tok/s | 82.6 min
+step 470/1110 | loss 3.911 KD 3.294 CE 3.084 | gn 1.44 lr 1.44e-04 | 5254 tok/s | 84.4 min
+step 480/1110 | loss 3.933 KD 3.312 CE 3.105 | gn 1.61 lr 1.41e-04 | 5257 tok/s | 86.1 min
+step 490/1110 | loss 3.956 KD 3.330 CE 3.127 | gn 1.61 lr 1.38e-04 | 5261 tok/s | 87.8 min
+step 500/1110 | loss 3.858 KD 3.249 CE 3.048 | gn 1.50 lr 1.35e-04 | 5262 tok/s | 89.6 min
+== step 500 | val KD 3.345 CE 3.177 *best*
+step 510/1110 | loss 3.839 KD 3.238 CE 3.010 | gn 1.69 lr 1.33e-04 | 5238 tok/s | 91.8 min
+step 520/1110 | loss 3.867 KD 3.258 CE 3.044 | gn 1.27 lr 1.30e-04 | 5241 tok/s | 93.6 min
+step 530/1110 | loss 3.909 KD 3.293 CE 3.084 | gn 1.50 lr 1.27e-04 | 5242 tok/s | 95.4 min
+step 540/1110 | loss 3.838 KD 3.234 CE 3.021 | gn 1.55 lr 1.24e-04 | 5245 tok/s | 97.2 min
+step 550/1110 | loss 3.846 KD 3.242 CE 3.025 | gn 1.37 lr 1.21e-04 | 5247 tok/s | 98.9 min
+step 560/1110 | loss 3.862 KD 3.256 CE 3.032 | gn 1.84 lr 1.18e-04 | 5250 tok/s | 100.6 min
+step 570/1110 | loss 3.764 KD 3.180 CE 2.923 | gn 1.49 lr 1.15e-04 | 5254 tok/s | 102.5 min
+step 580/1110 | loss 3.721 KD 3.148 CE 2.863 | gn 1.84 lr 1.12e-04 | 5256 tok/s | 104.3 min
+step 590/1110 | loss 3.684 KD 3.114 CE 2.848 | gn 1.23 lr 1.09e-04 | 5257 tok/s | 106.0 min
+step 600/1110 | loss 3.718 KD 3.143 CE 2.876 | gn 1.39 lr 1.06e-04 | 5258 tok/s | 107.8 min
+== step 600 | val KD 3.285 CE 3.110 *best*
+step 610/1110 | loss 3.636 KD 3.078 CE 2.791 | gn 1.39 lr 1.04e-04 | 5240 tok/s | 110.0 min
+step 620/1110 | loss 3.673 KD 3.107 CE 2.827 | gn 1.39 lr 1.01e-04 | 5244 tok/s | 111.7 min
+step 630/1110 | loss 3.712 KD 3.137 CE 2.875 | gn 1.45 lr 9.76e-05 | 5246 tok/s | 113.4 min
+step 640/1110 | loss 3.548 KD 3.008 CE 2.702 | gn 1.78 lr 9.47e-05 | 5248 tok/s | 115.2 min
+step 650/1110 | loss 3.683 KD 3.113 CE 2.852 | gn 1.40 lr 9.17e-05 | 5250 tok/s | 116.9 min
+step 660/1110 | loss 3.626 KD 3.065 CE 2.805 | gn 1.25 lr 8.88e-05 | 5251 tok/s | 118.7 min
+step 670/1110 | loss 3.648 KD 3.084 CE 2.819 | gn 1.16 lr 8.59e-05 | 5252 tok/s | 120.5 min
+step 680/1110 | loss 3.696 KD 3.124 CE 2.861 | gn 1.38 lr 8.30e-05 | 5256 tok/s | 122.2 min
+step 690/1110 | loss 3.615 KD 3.056 CE 2.792 | gn 1.22 lr 8.02e-05 | 5257 tok/s | 123.9 min
+step 700/1110 | loss 3.637 KD 3.073 CE 2.820 | gn 1.28 lr 7.73e-05 | 5259 tok/s | 125.6 min
+== step 700 | val KD 3.227 CE 3.048 *best*
+step 710/1110 | loss 3.650 KD 3.083 CE 2.837 | gn 1.30 lr 7.45e-05 | 5247 tok/s | 127.7 min
+step 720/1110 | loss 3.676 KD 3.107 CE 2.845 | gn 1.31 lr 7.17e-05 | 5248 tok/s | 129.5 min
+step 730/1110 | loss 3.625 KD 3.063 CE 2.812 | gn 1.12 lr 6.90e-05 | 5252 tok/s | 131.2 min
+step 740/1110 | loss 3.592 KD 3.038 CE 2.769 | gn 1.21 lr 6.63e-05 | 5253 tok/s | 132.9 min
+step 750/1110 | loss 3.517 KD 2.981 CE 2.681 | gn 1.01 lr 6.36e-05 | 5254 tok/s | 134.8 min
+step 760/1110 | loss 3.467 KD 2.939 CE 2.636 | gn 1.11 lr 6.10e-05 | 5255 tok/s | 136.5 min
+step 770/1110 | loss 3.452 KD 2.934 CE 2.587 | gn 1.30 lr 5.84e-05 | 5258 tok/s | 138.3 min
+step 780/1110 | loss 3.497 KD 2.966 CE 2.655 | gn 1.33 lr 5.58e-05 | 5259 tok/s | 140.0 min
+step 790/1110 | loss 3.425 KD 2.912 CE 2.565 | gn 1.07 lr 5.33e-05 | 5261 tok/s | 141.8 min
+step 800/1110 | loss 3.333 KD 2.837 CE 2.479 | gn 1.12 lr 5.08e-05 | 5262 tok/s | 143.6 min
+== step 800 | val KD 3.194 CE 3.007 *best*
+step 810/1110 | loss 3.467 KD 2.940 CE 2.633 | gn 1.13 lr 4.84e-05 | 5246 tok/s | 145.8 min
+step 820/1110 | loss 3.516 KD 2.983 CE 2.663 | gn 1.07 lr 4.61e-05 | 5248 tok/s | 147.6 min
+step 830/1110 | loss 3.451 KD 2.930 CE 2.608 | gn 1.00 lr 4.38e-05 | 5250 tok/s | 149.3 min
+step 840/1110 | loss 3.507 KD 2.972 CE 2.674 | gn 1.07 lr 4.16e-05 | 5251 tok/s | 151.1 min
+step 850/1110 | loss 3.496 KD 2.964 CE 2.659 | gn 1.02 lr 3.94e-05 | 5252 tok/s | 152.8 min
+step 860/1110 | loss 3.447 KD 2.925 CE 2.612 | gn 1.01 lr 3.73e-05 | 5254 tok/s | 154.6 min
+step 870/1110 | loss 3.506 KD 2.973 CE 2.667 | gn 1.01 lr 3.53e-05 | 5256 tok/s | 156.3 min
+step 880/1110 | loss 3.468 KD 2.943 CE 2.627 | gn 1.00 lr 3.33e-05 | 5258 tok/s | 158.1 min
+step 890/1110 | loss 3.464 KD 2.939 CE 2.624 | gn 1.08 lr 3.14e-05 | 5258 tok/s | 159.8 min
+step 900/1110 | loss 3.398 KD 2.885 CE 2.562 | gn 0.98 lr 2.96e-05 | 5260 tok/s | 161.6 min
+== step 900 | val KD 3.160 CE 2.973 *best*
+step 910/1110 | loss 3.513 KD 2.978 CE 2.673 | gn 0.88 lr 2.78e-05 | 5246 tok/s | 163.8 min
+step 920/1110 | loss 3.369 KD 2.863 CE 2.532 | gn 1.00 lr 2.61e-05 | 5246 tok/s | 165.6 min
+step 930/1110 | loss 3.447 KD 2.924 CE 2.613 | gn 1.09 lr 2.45e-05 | 5247 tok/s | 167.3 min
+step 940/1110 | loss 3.385 KD 2.879 CE 2.534 | gn 0.92 lr 2.30e-05 | 5250 tok/s | 169.1 min
+step 950/1110 | loss 3.371 KD 2.866 CE 2.522 | gn 1.01 lr 2.15e-05 | 5251 tok/s | 170.8 min
+step 960/1110 | loss 3.358 KD 2.856 CE 2.510 | gn 0.84 lr 2.02e-05 | 5253 tok/s | 172.6 min
+step 970/1110 | loss 3.380 KD 2.876 CE 2.522 | gn 0.85 lr 1.89e-05 | 5254 tok/s | 174.4 min
+step 980/1110 | loss 3.347 KD 2.850 CE 2.482 | gn 0.82 lr 1.77e-05 | 5255 tok/s | 176.1 min
+step 990/1110 | loss 3.330 KD 2.834 CE 2.479 | gn 0.85 lr 1.65e-05 | 5257 tok/s | 177.8 min
+step 1000/1110 | loss 3.378 KD 2.871 CE 2.534 | gn 0.82 lr 1.55e-05 | 5258 tok/s | 179.5 min
+== step 1000 | val KD 3.153 CE 2.962 *best*
+step 1010/1110 | loss 3.394 KD 2.886 CE 2.539 | gn 0.77 lr 1.46e-05 | 5250 tok/s | 181.6 min
+step 1020/1110 | loss 3.424 KD 2.910 CE 2.567 | gn 0.88 lr 1.37e-05 | 5250 tok/s | 183.4 min
+step 1030/1110 | loss 3.326 KD 2.832 CE 2.473 | gn 0.85 lr 1.29e-05 | 5252 tok/s | 185.1 min
+step 1040/1110 | loss 3.350 KD 2.852 CE 2.487 | gn 0.80 lr 1.22e-05 | 5254 tok/s | 186.8 min
+step 1050/1110 | loss 3.336 KD 2.836 CE 2.504 | gn 0.76 lr 1.16e-05 | 5255 tok/s | 188.6 min
+step 1060/1110 | loss 3.235 KD 2.757 CE 2.392 | gn 0.80 lr 1.11e-05 | 5256 tok/s | 190.3 min
+step 1070/1110 | loss 3.353 KD 2.851 CE 2.513 | gn 0.80 lr 1.07e-05 | 5257 tok/s | 192.1 min
+step 1080/1110 | loss 3.409 KD 2.898 CE 2.552 | gn 0.77 lr 1.04e-05 | 5258 tok/s | 193.8 min
+step 1090/1110 | loss 3.368 KD 2.864 CE 2.519 | gn 0.85 lr 1.02e-05 | 5260 tok/s | 195.5 min
+step 1100/1110 | loss 3.361 KD 2.856 CE 2.528 | gn 0.79 lr 1.00e-05 | 5261 tok/s | 197.3 min
+== step 1100 | val KD 3.143 CE 2.952 *best*
+step 1110/1110 | loss 3.380 KD 2.879 CE 2.505 | gn 0.80 lr 1.00e-05 | 5250 tok/s | 199.5 min
+== step 1110 | val KD 3.143 CE 2.952
+done. best val KD 3.143; final -> student_data/student/run1/final

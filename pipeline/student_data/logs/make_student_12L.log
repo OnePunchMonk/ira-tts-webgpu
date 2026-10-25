@@ -1,0 +1,5 @@
+teacher layers kept: [0, 3, 6, 10, 13, 16, 19, 22, 25, 29, 32, 35]
+MLP importance from 93065 tokens; keeping 4096/11008 neurons per layer
+student params: 494.2M  (embeddings 66.4M)
+saved -> /home/sanyam-0605/Desktop/sanyam_projects/rumik-oss-model-dissection/student_data/student/init_12L_4096
+val (24 samples, 24672 tokens): weighted loss 12.786 | KD xent 10.657 (teacher scoring itself: 2.198) | CE(sampled) 10.645

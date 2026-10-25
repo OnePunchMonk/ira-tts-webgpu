@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+web/vendor/
+web/models/
+web/_tmp/
+*.npz
+*.onnx
+*.onnx.data
+*.safetensors

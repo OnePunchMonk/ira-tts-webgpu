@@ -1,0 +1,11 @@
+60 held-out texts: {'en': 15, 'hi': 15, 'mixed': 15, 'roman': 15}
+[plan:student_data/quant_plans/plan_2.8.json] quant 16s total 480s | stop-rate 0.88 s/word 0.44 | all: WER 182.0 CER 123.2 | en: WER 242.4 CER 127.3 | hi: WER 132.5 CER 87.2 | mixed: WER 256.2 CER 196.1 | roman: WER 96.8 CER 82.1
+[plan:student_data/quant_plans/plan_3.0.json] quant 18s total 472s | stop-rate 0.88 s/word 0.43 | all: WER 76.2 CER 69.6 | en: WER 57.7 CER 48.0 | hi: WER 109.9 CER 60.7 | mixed: WER 83.7 CER 131.4 | roman: WER 53.5 CER 38.4
+[plan:student_data/quant_plans/plan_3.3.json] quant 18s total 466s | stop-rate 0.95 s/word 0.41 | all: WER 27.2 CER 18.3 | en: WER 15.0 CER 11.0 | hi: WER 28.9 CER 12.8 | mixed: WER 33.0 CER 29.9 | roman: WER 31.7 CER 19.5
+[hqq3g64 ] quant 19s total 387s | stop-rate 1.00 s/word 0.37 | all: WER 30.7 CER 20.0 | en: WER 12.9 CER 8.6 | hi: WER 39.7 CER 18.9 | mixed: WER 35.1 CER 28.7 | roman: WER 35.2 CER 23.7
+
+== summary (mean per-utterance WER/CER %, same texts and seed; bf16 = control)
+plan:student_data/quant_plans/plan_2.8.json all=182/123  en=242/127  hi=132/87  mixed=256/196  roman=97/82
+plan:student_data/quant_plans/plan_3.0.json all=76/70  en=58/48  hi=110/61  mixed=84/131  roman=54/38
+plan:student_data/quant_plans/plan_3.3.json all=27/18  en=15/11  hi=29/13  mixed=33/30  roman=32/20
+hqq3g64   all=31/20  en=13/9  hi=40/19  mixed=35/29  roman=35/24

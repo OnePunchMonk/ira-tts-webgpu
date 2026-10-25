@@ -1,0 +1,38 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[notice] A new release of pip is available: 26.1 -> 26.2.2
+[notice] To update, run: python3.12 -m pip install --upgrade pip
+INFO 10-24 18:14:29 [nixl_utils.py:20] Setting UCX_RCACHE_MAX_UNRELEASED to '1024' to avoid a rare memory leak in UCX when using NIXL.
+INFO 10-24 18:14:29 [nixl_utils.py:32] NIXL is available
+INFO 10-24 18:14:29 [utils.py:233] non-default args: {'trust_remote_code': True, 'dtype': 'bfloat16', 'max_model_len': 4096, 'gpu_memory_utilization': 0.5, 'disable_log_stats': True, 'quantization': 'modelopt_fp4', 'model': '/home/sanyam-0605/.cache/huggingface/hub/models--rumik-ai--rumik-oss-1-nvfp4-vllm/snapshots/local-import'}
+WARNING 10-24 18:14:29 [utils.py:149] TinyAyaConfig contains a deprecated attribute name 'rotary_pct'. Please use the preferred attribute name 'partial_rotary_factor' instead.
+INFO 10-24 18:14:29 [model.py:555] Resolved architecture: TinyAyaForCausalLM
+INFO 10-24 18:14:29 [model.py:1680] Using max model len 4096
+INFO 10-24 18:14:29 [scheduler.py:239] Chunked prefill is enabled with max_num_batched_tokens=8192.
+WARNING 10-24 18:14:29 [modelopt.py:1014] Detected ModelOpt NVFP4 checkpoint. Please note that the format is experimental and could change in future.
+INFO 10-24 18:14:29 [vllm.py:840] Asynchronous scheduling is enabled.
+INFO 10-24 18:14:29 [kernel.py:205] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'])
+INFO 10-24 18:14:29 [compilation.py:303] Enabled custom fusions: act_quant
+[chunk_00000.npz] 256 samples, 166512 tok, 1410 tok/s, unterminated=0, elapsed=119s
+[chunk_00001.npz] 256 samples, 157856 tok, 1339 tok/s, unterminated=0, elapsed=238s
+[chunk_00002.npz] 256 samples, 170216 tok, 1376 tok/s, unterminated=0, elapsed=362s
+[chunk_00003.npz] 256 samples, 174765 tok, 1257 tok/s, unterminated=3, elapsed=502s
+[chunk_00004.npz] 256 samples, 138224 tok, 1545 tok/s, unterminated=0, elapsed=593s
+[chunk_00005.npz] 256 samples, 146726 tok, 1319 tok/s, unterminated=2, elapsed=705s
+[chunk_00006.npz] 256 samples, 210894 tok, 1159 tok/s, unterminated=2, elapsed=888s
+[chunk_00008.npz] 256 samples, 190112 tok, 1267 tok/s, unterminated=0, elapsed=1247s
+[chunk_00009.npz] 256 samples, 194846 tok, 1186 tok/s, unterminated=2, elapsed=1413s
+[chunk_00010.npz] 256 samples, 208670 tok, 1150 tok/s, unterminated=2, elapsed=1597s
+[chunk_00011.npz] 256 samples, 209678 tok, 1139 tok/s, unterminated=2, elapsed=1782s
+[chunk_00012.npz] 256 samples, 205240 tok, 1160 tok/s, unterminated=0, elapsed=1961s
+[chunk_00013.npz] 256 samples, 181557 tok, 1213 tok/s, unterminated=3, elapsed=2112s
+[chunk_00014.npz] 256 samples, 190629 tok, 1146 tok/s, unterminated=3, elapsed=2279s
+[chunk_00015.npz] 256 samples, 192335 tok, 1151 tok/s, unterminated=1, elapsed=2448s
+[chunk_00016.npz] 256 samples, 199384 tok, 1239 tok/s, unterminated=0, elapsed=2611s
+[chunk_00017.npz] 256 samples, 233383 tok, 1052 tok/s, unterminated=1, elapsed=2834s
+[chunk_00018.npz] 256 samples, 179063 tok, 1187 tok/s, unterminated=1, elapsed=2986s
+[chunk_00019.npz] 256 samples, 150375 tok, 1238 tok/s, unterminated=1, elapsed=3108s
+[chunk_00020.npz] 256 samples, 143708 tok, 1258 tok/s, unterminated=4, elapsed=3224s
+[chunk_00021.npz] 256 samples, 171471 tok, 1198 tok/s, unterminated=1, elapsed=3369s
+[chunk_00022.npz] 256 samples, 176198 tok, 1186 tok/s, unterminated=2, elapsed=3518s
+[chunk_00023.npz] 47 samples, 32359 tok, 741 tok/s, unterminated=0, elapsed=3562s
+done: 4249184 tokens in 3562s
