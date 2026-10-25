@@ -1,10 +1,22 @@
 """Attention variants for the Ira 2-bit decoder, built from the shipped ONNX weights.
 
-Variants (all share the same dense fp16 weights, dequantised exactly from the 2-bit MatMulNBits packing):
-  shipped_dense   the graph exactly as shipped on Hugging Face (traced: MatMul/Softmax attention, Concat KV cache),
-                  with only the MatMulNBits nodes swapped for the equivalent dense MatMul (CUDA EP has no 2-bit kernel)
-  gqa_concat      fused com.microsoft GroupQueryAttention per layer (the build_fast_graph.py design), KV cache concatenated
-  gqa_static      same, but KV cache is a pre-allocated [1,4,MAX,128] buffer shared between past and present (no O(P) copy)
+Variant summary (A10G, CUDA EP, dense fp16 weights; ms per decode step, mean of 32 steps):
+
+  name                  graph                      KV cache        ORT attention kernel   L=2048 ms  speed-up  top-1 vs shipped
+  --------------------  -------------------------  --------------  ---------------------  ---------  --------  ----------------
+  shipped_dense         traced MatMul/Softmax      Concat per step explicit ops                21.08      1.00x     1.000 (baseline)
+  gqa_concat            fused GroupQueryAttention  Concat per step default (flash)             16.73      1.26x     0.938
+  gqa_static            fused GroupQueryAttention  static [1,4,4096,128]  default (flash)       16.14      1.31x     0.938
+  gqa_static_no_flash   fused GroupQueryAttention  static                 flash disabled         20.19      1.04x     0.938
+  gqa_static_unfused    fused GroupQueryAttention  static                 flash+mem-eff off      not run (no CUDA unfused GQA)
+
+Notes: flash attention drives the gain; static vs concat KV is within noise at these lengths.
+Top-1 agreement is over the first 64 steps; the 0.938 mismatch is unverified (fp16 noise suspected).
+
+shipped_dense: the graph exactly as shipped on Hugging Face (traced: MatMul/Softmax attention, Concat KV cache),
+               with only the MatMulNBits nodes swapped for the equivalent dense MatMul (CUDA EP has no 2-bit kernel)
+gqa_concat:    fused com.microsoft GroupQueryAttention per layer (the build_fast_graph.py design), KV cache concatenated
+gqa_static:    same, but the KV cache is a pre-allocated [1,4,MAX,128] buffer shared by past and present (no O(P) copy)
 
 Only the decode step (T=1) is built and benchmarked, which is what the app runs after prefill.
 """

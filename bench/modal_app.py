@@ -33,6 +33,13 @@ image = (
 )
 app = modal.App("ira-tts-attention-bench", image=image)
 
+# Variant table (numbers from results/bench.json; see ira_onnx.py docstring for the full table):
+#   name                 | graph kind | ORT env overrides                                  | L=2048 ms | speed-up
+#   shipped_dense        | shipped    | none (explicit attention, Concat KV)               | 21.08     | 1.00x
+#   gqa_concat           | concat     | none (fused GQA, Concat KV)                        | 16.73     | 1.26x
+#   gqa_static           | static     | none (fused GQA, static KV buffer)                 | 16.14     | 1.31x
+#   gqa_static_no_flash  | static     | ORT_DISABLE_FLASH_ATTENTION=1                      | 20.19     | 1.04x
+#   gqa_static_unfused   | static     | flash + mem-efficient disabled (not run: no kernel)| n/a       | n/a
 VARIANTS = {
     # name: (graph kind, env overrides for ORT's fused-attention kernel selection)
     "shipped_dense": ("shipped", {}),
