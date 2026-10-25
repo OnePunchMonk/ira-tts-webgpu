@@ -25,7 +25,7 @@ base = next(r for r in bench if r["name"] == "shipped_dense")["lat_mean_ms"]["20
 names = [r["name"] for r in bench]
 sp = [base / r["lat_mean_ms"]["2048"] for r in bench]
 fig, ax = plt.subplots(figsize=(7, 4))
-bars = ax.bar(names, sp, color=["#888" if n == "shipped_dense" else "#2a7" if "static" in n and "flash" not in n and n == "gqa_static" else "#58a" for n in names])
+bars = ax.bar(names, sp, color=["#888" if n == "shipped_dense" else "#2a7" if n == "gqa_static_nosplit" else "#58a" for n in names])
 for b, v in zip(bars, sp):
     ax.text(b.get_x() + b.get_width() / 2, v + 0.01, f"{v:.2f}x", ha="center", fontsize=9)
 ax.axhline(1, color="k", lw=0.8, ls="--")
