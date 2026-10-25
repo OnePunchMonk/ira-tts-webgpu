@@ -47,6 +47,10 @@ VARIANTS = {
     "gqa_static": ("static", {}),
     "gqa_static_no_flash": ("static", {"ORT_DISABLE_FLASH_ATTENTION": "1"}),
     "gqa_static_unfused": ("static", {"ORT_DISABLE_FLASH_ATTENTION": "1", "ORT_DISABLE_MEMORY_EFFICIENT_ATTENTION": "1"}),
+    # round 2: launch-overhead and projection-split variants
+    "gqa_static_nosplit": ("static_nosplit", {}),                  # gate/up as two MatMuls, no Split
+    "gqa_static_cudagraph": ("static", {"CUDA_GRAPH": "1"}),       # static KV decode step captured as a CUDA graph
+    "gqa_static_nosplit_cudagraph": ("static_nosplit", {"CUDA_GRAPH": "1"}),
 }
 
 
@@ -72,17 +76,21 @@ def _prepare(kind_graph, workdir):
     if kind_graph == "shipped":
         I.build_shipped_dense(shipped, W, out)
     else:
-        I.build_gqa(W, rc, static=(kind_graph == "static"), out_path=out)
+        I.build_gqa(W, rc, static=kind_graph.startswith("static"), out_path=out,
+                    split_gateup=(kind_graph != "static_nosplit"))
     return out
 
 
 def _session(path, env):
+    env = dict(env)
+    graph_capture = env.pop("CUDA_GRAPH", None) == "1"
     for k, v in env.items():
         os.environ[k] = v
     import onnxruntime as ort
     so = ort.SessionOptions()
     so.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
-    sess = ort.InferenceSession(path, so, providers=[("CUDAExecutionProvider", {"device_id": 0}), "CPUExecutionProvider"])
+    cuda_opts = {"device_id": 0, "enable_cuda_graph": "1" if graph_capture else "0"}
+    sess = ort.InferenceSession(path, so, providers=[("CUDAExecutionProvider", cuda_opts), "CPUExecutionProvider"])
     assert sess.get_providers()[0] == "CUDAExecutionProvider", sess.get_providers()
     return sess
 
@@ -130,7 +138,8 @@ def _bench_variant(name: str):
     tokens = rng.integers(16, 32016, size=STEPS).tolist()   # decode-only, token ids in the text range (values do not change cost)
     steps_ms, keep_logits, stops = [], [], []
     t_run = time.time()
-    for step, logits, stop, wall in I.run_decode(sess, kind, tokens):
+    decode_kind = "static" if kind.startswith("static") else kind   # nosplit is still a static-KV graph
+    for step, logits, stop, wall in I.run_decode(sess, decode_kind, tokens):
         steps_ms.append(wall)
         stops.append(stop)
         if step < COMPARE_STEPS:
@@ -170,7 +179,7 @@ def profile_variant(name: str, steps: int = 512):
     sess = ort.InferenceSession(path, so, providers=[("CUDAExecutionProvider", {"device_id": 0}), "CPUExecutionProvider"])
     rng = np.random.default_rng(1234)
     tokens = rng.integers(16, 32016, size=steps).tolist()
-    for _ in I.run_decode(sess, kind, tokens):
+    for _ in I.run_decode(sess, "static" if kind.startswith("static") else kind, tokens):
         pass
     fn = sess.end_profiling()
     events = json.load(open(fn))
@@ -238,3 +247,44 @@ def main(only: str = "", profile: bool = True):
             for k, ms, frac in p["top_ops"][:10]:
                 print(f"  {k:28s} {ms:10.1f} ms  {frac*100:5.1f}%")
     print(f"\nwrote {out}/bench.json")
+
+
+@app.function(volumes={WEIGHTS: VOL}, gpu=GPU, memory=32768, timeout=3600)
+def verify_2bit(steps: int = 64):
+    """Build the shippable 2-bit graph, check it, and check its numerics via a dense twin against the benchmarked nosplit graph."""
+    import numpy as np
+    import onnx
+    import ira_onnx as I
+    shipped = I.load_shipped(f"{WEIGHTS}/ira/decoder/model.onnx")
+    W = I.extract_weights(shipped)
+    rc = I.rope_config(f"{WEIGHTS}/rumik_oss_1_config.json")
+    os.makedirs("/tmp/work/ship", exist_ok=True)
+    p2 = "/tmp/work/ship/model.onnx"
+    I.build_gqa_2bit(shipped, W, rc, p2)
+    onnx.checker.check_model(p2, full_check=False)
+    print("[verify] 2-bit graph passes onnx.checker", flush=True)
+    onnx_model = onnx.load(p2, load_external_data=False)
+    from collections import Counter
+    print("[verify] ops:", Counter(n.op_type for n in onnx_model.graph.node).most_common(12), flush=True)
+    twin = "/tmp/work/twin/model.onnx"
+    os.makedirs("/tmp/work/twin", exist_ok=True)
+    I.dense_twin(p2, twin)
+    ref = "/tmp/work/ref_nosplit/model.onnx"
+    os.makedirs("/tmp/work/ref_nosplit", exist_ok=True)
+    I.build_gqa(W, rc, static=True, out_path=ref, split_gateup=False)
+    rng = np.random.default_rng(1234)
+    tokens = rng.integers(16, 32016, size=steps).tolist()
+    outs = {}
+    for name, path in [("twin", twin), ("ref", ref)]:
+        sess = _session(path, {})
+        outs[name] = np.stack([lg for _, lg, _, _ in I.run_decode(sess, "static", tokens)])
+        del sess
+    d = np.abs(outs["twin"] - outs["ref"])
+    top1 = float((outs["twin"].argmax(-1) == outs["ref"].argmax(-1)).mean())
+    print(f"[verify] twin vs benchmarked nosplit graph over {steps} steps: max|dlogit|={d.max():.4g} top1={top1:.3f}", flush=True)
+    return {"max_abs_diff": float(d.max()), "top1": top1, "steps": steps}
+
+
+@app.local_entrypoint()
+def verify():
+    print(verify_2bit.remote())
