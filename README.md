@@ -3,8 +3,14 @@
 A 2-bit build of [rumik-oss-1](https://huggingface.co/rumik-ai/rumik-oss-1) (voice **Ira**; Hindi / English / Hinglish) that runs entirely on the
 user's GPU through WebGPU, plus the pipeline that produced it. Research / non-commercial use only (see *Licence*).
 
-* Model + weights (public): **https://huggingface.co/Sanyam0605/ira-tts-2bit-web** — 1.2 GB decoder (≈2.6 effective bits) + Mimi decoder + tokenizer assets.
-* Demo page: `web/` (static; loads the weights from the Hugging Face repo).
+## Links
+| | |
+|---|---|
+| **Model weights** (2-bit decoder + Mimi decoder + tokenizer assets, ≈1.4 GB) | https://huggingface.co/Sanyam0605/ira-tts-2bit-web |
+| **Live demo** (Hugging Face Space, static; open the direct link in Chrome) | https://huggingface.co/spaces/Sanyam0605/ira-tts-web → https://sanyam0605-ira-tts-web.static.hf.space/ |
+| Demo page source | `web/` in this repo (the Space may lag behind it) |
+
+The weights are not stored in this repository (they are hosted on Hugging Face; GitHub LFS quotas are too small for them). The demo page downloads them from the model repo on first load and caches them in the browser.
 
 ## Status — honest summary
 | | result |
