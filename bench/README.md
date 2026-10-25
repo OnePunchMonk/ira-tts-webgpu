@@ -56,6 +56,8 @@ Mean ms per decode step over a 32-step window at each context length. Speed-up i
 Notes:
 * Flash attention is what makes the fused op fast here: disabling it removes almost the whole gain.
 * Static vs concat KV cache makes little difference at these lengths (within noise).
-* Top-1 agreement of 0.938 (4 of 64 steps differ) with a logit gap of 0.028 looks like fp16 noise on near-tied logits. Not yet confirmed.
+* Top-1 agreement of 0.938 (4 of 64 steps differ vs the shipped graph) is fp16 noise. Against an fp32 PyTorch reference (`bench/results/accuracy_fp32.json`, 64 steps, random token ids):
+  shipped fp16 top-1 0.969 (max logit err 0.026), fused nosplit fp16 top-1 0.938 (max logit err 0.019). Every mismatch picks a token within 0.007 logits of the fp32 best. Small sample.
+* Round 2: `gqa_static_nosplit` 15.69 ms at 2048 tokens (1.34x). The CUDA-graph variants failed (ORT could not convert an output to numpy) and are unmeasured.
 * Attention is only 13–16% of profiled time. Most of the step is the MatMul/Split/Cast work of the weight projections, so attention alone cannot give more than about 1.3x here.
 * Profile per-op times are host-observed for CUDA and read only as a relative split. Raw data: `results/bench.json`, `results/profile.json`, `results/run_log.txt`.

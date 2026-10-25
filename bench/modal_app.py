@@ -26,11 +26,11 @@ CHECKPOINTS = [64, 512, 1024, 2048]
 WINDOW = 32                     # mean over steps [L, L+WINDOW)
 COMPARE_STEPS = 64              # logits kept for the correctness check
 
-image = (
+image_base = (
     modal.Image.from_registry("nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04", add_python="3.11")
     .pip_install("onnxruntime-gpu==1.23.2", "onnx==1.17.0", "numpy<2", "huggingface_hub==0.30.2")
-    .add_local_file(HERE / "ira_onnx.py", "/root/ira_onnx.py")
 )
+image = image_base.add_local_file(HERE / "ira_onnx.py", "/root/ira_onnx.py")
 app = modal.App("ira-tts-attention-bench", image=image)
 
 # Variant table (numbers from results/bench.json; see ira_onnx.py docstring for the full table):
@@ -288,3 +288,104 @@ def verify_2bit(steps: int = 64):
 @app.local_entrypoint()
 def verify():
     print(verify_2bit.remote())
+
+
+image_torch = (image_base.pip_install("torch==2.5.1")
+               .add_local_file(HERE / "ira_onnx.py", "/root/ira_onnx.py")
+               .add_local_file(HERE.parent / "pipeline" / "web_tts" / "ref_decoder.py", "/root/ref_decoder.py"))
+
+
+@app.function(image=image_torch, volumes={WEIGHTS: VOL}, gpu=GPU, memory=65536, timeout=3600)
+def accuracy_check(steps: int = 64):
+    """fp32 PyTorch reference (ref_decoder.py, same dequantised weights) vs the fp16 shipped graph and the fp16 fused nosplit graph."""
+    import gc
+    import numpy as np
+    import torch
+    import ira_onnx as I
+    from ref_decoder import WebDecoder, empty_past
+    shipped = I.load_shipped(f"{WEIGHTS}/ira/decoder/model.onnx")
+    W = I.extract_weights(shipped)
+    del shipped
+    cfg = json.load(open(f"{WEIGHTS}/rumik_oss_1_config.json"))
+    cfg.setdefault("logit_scale", 1.0)
+    rng = np.random.default_rng(1234)
+    tokens = rng.integers(16, 32016, size=STEPS).tolist()[:steps]
+
+    m = WebDecoder(cfg, 48400)
+    f = lambda a: torch.from_numpy(np.ascontiguousarray(a)).float()
+    with torch.no_grad():
+        m.embed.copy_(f(W["embed"])); m.out_rows.copy_(f(W["head"]).t()); m.norm.weight.copy_(f(W["final_norm"]))
+        for i, L in enumerate(m.layers):
+            L.ln.weight.copy_(f(W[f"layers.{i}.ln"]))
+            for r in ("q", "k", "v", "o", "gate", "up", "down"):
+                getattr(L, r).copy_(f(W[f"layers.{i}.{r}"]))
+        m.stop[0].weight.copy_(f(W["stop.ln.w"])); m.stop[0].bias.copy_(f(W["stop.ln.b"]))
+        m.stop[1].weight.copy_(f(W["stop.w1"]).t()); m.stop[1].bias.copy_(f(W["stop.b1"]))
+        m.stop[3].weight.copy_(f(W["stop.w2"]).t()); m.stop[3].bias.copy_(f(W["stop.b2"]))
+    m = m.eval()   # CPU: ref_decoder builds its causal mask on CPU
+    past = list(empty_past(cfg, torch.float32))
+    ref = []
+    with torch.no_grad():
+        for t, tok in enumerate(tokens):
+            out = m(torch.tensor([[tok]]), torch.tensor([[t]]), *past)
+            past = list(out[2:])
+            ref.append(out[0][0].float().cpu().numpy())
+    ref = np.stack(ref)
+    del m, past
+    gc.collect()
+    print(f"[acc] fp32 reference done ({steps} steps)", flush=True)
+
+    res = {}
+    outs = {}
+    for name in ("shipped_dense", "gqa_static_nosplit"):
+        kind, env = VARIANTS[name]
+        sess = _session(_prepare(kind, f"/tmp/work/{name}"), env)
+        dk = "static" if kind.startswith("static") else kind
+        outs[name] = np.stack([lg for _, lg, _, _ in I.run_decode(sess, dk, tokens)])
+        del sess
+        gc.collect()
+        o = outs[name]
+        d = np.abs(o - ref)
+        mism = np.where(o.argmax(-1) != ref.argmax(-1))[0]
+        gaps = [float(ref[t, ref[t].argmax()] - ref[t, o[t].argmax()]) for t in mism]   # how far below ref's best the variant's pick is, in fp32 logits
+        res[name] = {"top1_vs_fp32": float((o.argmax(-1) == ref.argmax(-1)).mean()), "max_abs": float(d.max()), "mean_abs": float(d.mean()),
+                     "mismatch_steps": mism.tolist(), "ref_logit_gap_at_mismatch": gaps,
+                     "ref_top1_margin_median": float(np.median(np.sort(ref, -1)[:, -1] - np.sort(ref, -1)[:, -2]))}
+        print(f"[acc] {name}: top1 vs fp32 {res[name]['top1_vs_fp32']:.3f} max|d| {res[name]['max_abs']:.4f} mean|d| {res[name]['mean_abs']:.5f} "
+              f"mismatches {len(mism)} gaps {['%.3f' % g for g in gaps]}", flush=True)
+    a, b = outs["shipped_dense"], outs["gqa_static_nosplit"]
+    res["fp16_variants_top1_agree"] = float((a.argmax(-1) == b.argmax(-1)).mean())
+    print("[acc] shipped_fp16 vs fused_fp16 top1 agree:", res["fp16_variants_top1_agree"], flush=True)
+    return res
+
+
+@app.local_entrypoint()
+def accuracy():
+    r = accuracy_check.remote()
+    (HERE / "results" / "accuracy_fp32.json").write_text(json.dumps(r, indent=1))
+    print(json.dumps(r, indent=1))
+
+
+@app.function(volumes={WEIGHTS: VOL}, memory=32768, timeout=3600)
+def build_ship():
+    """Build the shippable 2-bit fused graph (fused GQA, static KV, gate/up without Split) into the volume under /weights/ship/decoder."""
+    import onnx
+    import ira_onnx as I
+    shipped = I.load_shipped(f"{WEIGHTS}/ira/decoder/model.onnx")
+    W = I.extract_weights(shipped)
+    rc = I.rope_config(f"{WEIGHTS}/rumik_oss_1_config.json")
+    out = f"{WEIGHTS}/ship/decoder"
+    os.makedirs(out, exist_ok=True)
+    for f in os.listdir(out):
+        os.remove(os.path.join(out, f))
+    I.build_gqa_2bit(shipped, W, rc, f"{out}/model.onnx")
+    onnx.checker.check_model(f"{out}/model.onnx", full_check=False)
+    VOL.commit()
+    sizes = {f: os.path.getsize(os.path.join(out, f)) for f in os.listdir(out)}
+    print("[ship] built", sizes, flush=True)
+    return sizes
+
+
+@app.local_entrypoint()
+def ship():
+    print(build_ship.remote())
